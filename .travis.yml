@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - node_modules
+script:
+  - yarn test
+  - yarn build
+deploy:
+  skip_cleanup: true
+  provider: surge
+  project: ./build/
+  domain: https://ankursharma.surge.sh
+
+on:
+  branch: master
