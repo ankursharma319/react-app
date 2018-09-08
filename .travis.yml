@@ -13,5 +13,6 @@ deploy:
   project: ./build/
   domain: https://ankursharma.surge.sh
 
-on:
-  branch: master
+branches:
+  only:
+    - master
