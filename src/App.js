@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Album from './components/Album';
 import SignIn from "./components/SignIn";
 
 import {createMuiTheme} from '@material-ui/core/styles';
-import indigo from '@material-ui/core/colors/indigo';
-import green from '@material-ui/core/colors/green';
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {
     withRouter,
@@ -15,6 +12,9 @@ import {
     Link,
     Redirect
 } from "react-router-dom";
+import TopBar from "./components/TopBar";
+import SideBar from "./components/SideBar";
+import {Switch} from "react-router";
 
 const theme = createMuiTheme({
     palette: {
@@ -28,28 +28,31 @@ class App extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <Router>
-                <div className="App">
-                    <header className="App-header">
-                        <img src={logo} className="App-logo" alt="logo"/>
-                        <h1 className="App-title">Welcome to Ankurs React App, under active development</h1>
-                        <ul>
-                            <li>
-                                <Link to="/public">Public Page</Link>
-                            </li>
-                            <li>
-                                <Link to="/protected">Protected Page</Link>
-                            </li>
-                        </ul>
-                    </header>
-                    <div>
-                            <div>
-                                <AuthButton />
-                                <Route path="/public" component={Public} />
+                    <div className="App">
+                        <TopBar/>
+                        <AuthButton />
+                        <div>
+                            <ul>
+                                <li>
+                                    <Link to="/public">Public Page</Link>
+                                </li>
+                                <li>
+                                    <Link to="/protected">Protected Page</Link>
+                                </li>
+                                <li>
+                                    <Link to="/ran/dom/deep">Deep Page</Link>
+                                </li>
+                            </ul>
+                            <Switch>
+                                <Route path="/" component={Public} exact/>
+                                <Route path="/public" component={Public} exact/>
                                 <Route path="/login" component={Login} />
+                                <Route path="/ran/dom/deep" component={Deep} />
                                 <PrivateRoute path="/protected" component={Protected} />
-                            </div>
+                            </Switch>
+                            <Album/>
+                        </div>
                     </div>
-                </div>
                 </Router>
             </MuiThemeProvider>
         );
@@ -105,6 +108,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 const Public = () => <h3>Public</h3>;
+const Deep = () => <h3>Deep</h3>;
 const Protected = () => <h3>Protected</h3>;
 
 class Login extends React.Component {
