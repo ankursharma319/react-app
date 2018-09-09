@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Album from './components/Album';
-import SignIn from "./components/SignIn";
 
-import {createMuiTheme} from '@material-ui/core/styles';
-import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {
     withRouter,
     BrowserRouter as Router,
@@ -13,48 +10,38 @@ import {
     Redirect
 } from "react-router-dom";
 import TopBar from "./components/TopBar";
-import SideBar from "./components/SideBar";
 import {Switch} from "react-router";
-
-const theme = createMuiTheme({
-    palette: {
-//        primary: indigo,
-//        type: "dark",
-    },
-});
 
 class App extends Component {
     render() {
         return (
-            <MuiThemeProvider theme={theme}>
-                <Router>
-                    <div className="App">
-                        <TopBar/>
-                        <AuthButton />
-                        <div>
-                            <ul>
-                                <li>
-                                    <Link to="/public">Public Page</Link>
-                                </li>
-                                <li>
-                                    <Link to="/protected">Protected Page</Link>
-                                </li>
-                                <li>
-                                    <Link to="/ran/dom/deep">Deep Page</Link>
-                                </li>
-                            </ul>
-                            <Switch>
-                                <Route path="/" component={Public} exact/>
-                                <Route path="/public" component={Public} exact/>
-                                <Route path="/login" component={Login} />
-                                <Route path="/ran/dom/deep" component={Deep} />
-                                <PrivateRoute path="/protected" component={Protected} />
-                            </Switch>
-                            <Album/>
-                        </div>
+            <Router>
+                <div className="App">
+                    <TopBar/>
+                    <AuthButton />
+                    <div>
+                        <ul>
+                            <li>
+                                <Link to="/public">Public Page</Link>
+                            </li>
+                            <li>
+                                <Link to="/protected">Protected Page</Link>
+                            </li>
+                            <li>
+                                <Link to="/ran/dom/deep">Deep Page</Link>
+                            </li>
+                        </ul>
+                        <Switch>
+                            <Route path="/" component={Public} exact/>
+                            <Route path="/public" component={Public} exact/>
+                            <Route path="/login" component={Login} />
+                            <Route path="/ran/dom/deep" component={Deep} />
+                            <PrivateRoute path="/protected" component={Protected} />
+                        </Switch>
+                        <Album/>
                     </div>
-                </Router>
-            </MuiThemeProvider>
+                </div>
+            </Router>
         );
     }
 }
