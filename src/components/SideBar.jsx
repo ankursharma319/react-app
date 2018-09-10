@@ -1,37 +1,8 @@
 import * as PropTypes from "prop-types";
 import {withStyles} from "@material-ui/core";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer/SwipeableDrawer";
-import List from "@material-ui/core/List/List";
 import Divider from "@material-ui/core/Divider/Divider";
 import React from "react";
-import ListItem from "@material-ui/core/ListItem/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText/ListItemText";
-
-import MailIcon from '@material-ui/icons/Mail';
-import InboxIcon from '@material-ui/icons/Inbox';
-
-const mailFolderListItems = (
-    <div>
-        <ListItem button>
-            <ListItemIcon>
-                <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
-        </ListItem>
-    </div>
-);
-
-const otherMailFolderListItems = (
-    <div>
-        <ListItem button>
-            <ListItemIcon>
-                <MailIcon />
-            </ListItemIcon>
-            <ListItemText primary="All mail" />
-        </ListItem>
-    </div>
-);
 
 const styles = {
     list: {
@@ -70,11 +41,7 @@ SideBar.propTypes = {
 
 SideBar.defaultProps = {
     sideListDiv : (
-        <div>
-            <List>{mailFolderListItems}</List>
-            <Divider />
-            <List>{otherMailFolderListItems}</List>
-        </div>
+        <Divider />
     ),
     isDrawerOpen : false
 };

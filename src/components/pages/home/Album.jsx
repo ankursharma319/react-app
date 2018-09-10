@@ -52,11 +52,7 @@ const styles = theme => ({
     },
     cardContent: {
         flexGrow: 1,
-    },
-    footer: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing.unit * 6,
-    },
+    }
 });
 
 const cards = [1, 2, 3, 4, 5, 6];
@@ -128,16 +124,6 @@ function Album(props) {
                     </Grid>
                 </div>
             </main>
-            {/* Footer */}
-            <footer className={classes.footer}>
-                <Typography variant="title" align="center" gutterBottom>
-                    Footer
-                </Typography>
-                <Typography variant="subheading" align="center" color="textSecondary" component="p">
-                    Something here to give the footer a purpose!
-                </Typography>
-            </footer>
-            {/* End footer */}
         </React.Fragment>
     );
 }
