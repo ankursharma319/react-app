@@ -14,6 +14,13 @@ import fakeAuth from "./services/AuthService";
 import AuthStatus from "./components/AuthStatus";
 import PrivateRoute from "./components/PrivateRoute";
 import Footer from "./components/Footer";
+import ScorePrediction from "./components/pages/score_prediction/ScorePrediction";
+import Home from "./components/pages/home/Home";
+import PlayerRatings from "./components/pages/player_ratings/PlayerRatings";
+import CricketManager from "./components/pages/cricket_manager/CricketManager";
+import InvalidUrl from "./components/pages/error/InvalidUrl";
+import MessiVsRonaldo from "./components/pages/messi_vs_ronaldo/MessiVsRonaldo";
+import OtherWork from "./components/pages/other_work/OtherWork";
 
 class App extends Component {
     render() {
@@ -23,11 +30,15 @@ class App extends Component {
                     <TopBar/>
                     <Switch>
                         <Route path="/" component={Home} exact/>
-                        <Route path="/about_me" component={AboutMe} exact/>
-                        <Route path="/other_work" component={Album} />
                         <Route path="/login" component={Login} />
+                        <Route path="/album" component={Album} />
+                        <Route path="/about_me" component={AboutMe} exact/>
+                        <Route path="/other_work" component={OtherWork} />
+                        <Route path="/player_ratings" component={PlayerRatings} />
+                        <Route path="/cricket_manager" component={CricketManager} />
+                        <Route path="/messi_vs_ronaldo" component={MessiVsRonaldo} />
                         <PrivateRoute path="/score_prediction" component={ScorePrediction} />
-                        <Route render={() => (<h3> Sorry, this page does not exist. </h3>)} />
+                        <Route component={InvalidUrl} />
                     </Switch>
                     <Footer/>
                 </div>
@@ -35,9 +46,6 @@ class App extends Component {
         );
     }
 }
-
-const Home = () => <h3>Home</h3>;
-const ScorePrediction = () => <h3>Score Prediction</h3>;
 
 class Login extends React.Component {
     state = {
