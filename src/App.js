@@ -1,111 +1,51 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Album from './components/Album';
-import SignIn from "./components/SignIn";
+import Album from './components/pages/home/Album';
+import AboutMe from './components/pages/about_me/AboutMe';
 
-import {createMuiTheme} from '@material-ui/core/styles';
-import indigo from '@material-ui/core/colors/indigo';
-import green from '@material-ui/core/colors/green';
-import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import {
-    withRouter,
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
-    Link,
     Redirect
 } from "react-router-dom";
-
-const theme = createMuiTheme({
-    palette: {
-//        primary: indigo,
-//        type: "dark",
-    },
-});
+import TopBar from "./components/TopBar";
+import {Switch} from "react-router";
+import fakeAuth from "./services/AuthService";
+import AuthStatus from "./components/AuthStatus";
+import PrivateRoute from "./components/PrivateRoute";
+import Footer from "./components/Footer";
+import ScorePrediction from "./components/pages/score_prediction/ScorePrediction";
+import Home from "./components/pages/home/Home";
+import PlayerRatings from "./components/pages/player_ratings/PlayerRatings";
+import CricketManager from "./components/pages/cricket_manager/CricketManager";
+import InvalidUrl from "./components/pages/error/InvalidUrl";
+import MessiVsRonaldo from "./components/pages/messi_vs_ronaldo/MessiVsRonaldo";
+import OtherWork from "./components/pages/other_work/OtherWork";
 
 class App extends Component {
     render() {
         return (
-            <MuiThemeProvider theme={theme}>
-                <Router>
+            <Router>
                 <div className="App">
-                    <header className="App-header">
-                        <img src={logo} className="App-logo" alt="logo"/>
-                        <h1 className="App-title">Welcome to Ankurs React App, under active development</h1>
-                        <ul>
-                            <li>
-                                <Link to="/public">Public Page</Link>
-                            </li>
-                            <li>
-                                <Link to="/protected">Protected Page</Link>
-                            </li>
-                        </ul>
-                    </header>
-                    <div>
-                            <div>
-                                <AuthButton />
-                                <Route path="/public" component={Public} />
-                                <Route path="/login" component={Login} />
-                                <PrivateRoute path="/protected" component={Protected} />
-                            </div>
-                    </div>
+                    <TopBar/>
+                    <Switch>
+                        <Route path="/" component={Home} exact/>
+                        <Route path="/login" component={Login} />
+                        <Route path="/album" component={Album} />
+                        <Route path="/about_me" component={AboutMe} exact/>
+                        <Route path="/other_work" component={OtherWork} />
+                        <Route path="/player_ratings" component={PlayerRatings} />
+                        <Route path="/cricket_manager" component={CricketManager} />
+                        <Route path="/messi_vs_ronaldo" component={MessiVsRonaldo} />
+                        <PrivateRoute path="/score_prediction" component={ScorePrediction} />
+                        <Route component={InvalidUrl} />
+                    </Switch>
+                    <Footer/>
                 </div>
-                </Router>
-            </MuiThemeProvider>
+            </Router>
         );
     }
 }
-
-const fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        this.isAuthenticated = true;
-        setTimeout(cb, 100); // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false;
-        setTimeout(cb, 100);
-    }
-};
-
-const AuthButton = withRouter(
-    ({ history }) =>
-        fakeAuth.isAuthenticated ? (
-            <p>
-                Welcome!{" "}
-                <button
-                    onClick={() => {
-                        fakeAuth.signout(() => history.push("/"));
-                    }}
-                >
-                    Sign out
-                </button>
-            </p>
-        ) : (
-            <p>You are not logged in.</p>
-        )
-);
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route
-        {...rest}
-        render={props =>
-            fakeAuth.isAuthenticated ? (
-                <Component {...props} />
-            ) : (
-                <Redirect
-                    to={{
-                        pathname: "/login",
-                        state: { from: props.location }
-                    }}
-                />
-            )
-        }
-    />
-);
-
-const Public = () => <h3>Public</h3>;
-const Protected = () => <h3>Protected</h3>;
 
 class Login extends React.Component {
     state = {
