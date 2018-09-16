@@ -21,6 +21,10 @@ import CricketManager from "./components/pages/cricket_manager/CricketManager";
 import InvalidUrl from "./components/pages/error/InvalidUrl";
 import MessiVsRonaldo from "./components/pages/messi_vs_ronaldo/MessiVsRonaldo";
 import OtherWork from "./components/pages/other_work/OtherWork";
+import Playground from "./components/pages/playground/Playground";
+import PrivacyPolicy from "./components/pages/common/PrivacyPolicy";
+import TermsOfServices from "./components/pages/common/TermsOfServices";
+import FacebookLoginResponse from "./components/pages/auth/FacebookLoginResponse";
 
 class App extends Component {
     render() {
@@ -37,7 +41,11 @@ class App extends Component {
                         <Route path="/player_ratings" component={PlayerRatings} />
                         <Route path="/cricket_manager" component={CricketManager} />
                         <Route path="/messi_vs_ronaldo" component={MessiVsRonaldo} />
+                        <Route path="/playground" component={Playground} />
                         <PrivateRoute path="/score_prediction" component={ScorePrediction} />
+                        <Route path="/privacy_policy" component={PrivacyPolicy} />
+                        <Route path="/terms_of_service" component={TermsOfServices} />
+                        <Route path="/auth/facebook/login_response" component={FacebookLoginResponse} />
                         <Route component={InvalidUrl} />
                     </Switch>
                     <Footer/>
