@@ -23,7 +23,7 @@ const styles = {
     }
 };
 
-const linkToHome = props => <Link to="/" exact {...props}/>;
+const linkToHome = props => <Link to="/" exact="true" {...props}/>;
 const linkToPlayerRatings = props => <Link to="/player_ratings" {...props}/>;
 const linkToMessiVsRonaldo = props => <Link to="/messi_vs_ronaldo" {...props}/>;
 const linkToScorePrediction = props => <Link to="/score_prediction" {...props}/>;

@@ -75,7 +75,7 @@ TopBar.propTypes = {
 };
 
 TopBar.defaultProps = {
-    title : "Portfolio"
+    title : ""
 };
 
 export default withStyles(styles)(TopBar);
