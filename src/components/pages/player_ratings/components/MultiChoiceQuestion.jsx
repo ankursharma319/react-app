@@ -11,7 +11,7 @@ const styles = theme => ({
 
     },
     menu: {
-        width: 200,
+//        width: 200,
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -24,14 +24,14 @@ class MultiChoiceQuestion extends Component {
         const {question_data, classes, handleChange} = this.props;
         return (
             <div>
-                <Grid container={true} spacing={8} alignItems={"center"} alignContent={"center"}
+                <Grid container={true} spacing={40} alignItems={"center"} alignContent={"center"}
                       justify={"space-evenly"} className={classes.gridRoot}>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                         <Typography variant={"body1"} align={"center"}>
                             {question_data.question}
                         </Typography>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={7}>
                         <form className={classes.container} noValidate autoComplete="off">
                         <TextField
                             select
@@ -47,6 +47,7 @@ class MultiChoiceQuestion extends Component {
                             helperText="Please select your answer"
                             margin="normal"
                             variant="outlined"
+                            fullWidth={true}
                         >
                             { Object.keys(question_data.choices).map( i => (
                                 <MenuItem key={i} value={i}>

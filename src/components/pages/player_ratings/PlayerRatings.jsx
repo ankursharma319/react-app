@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid/Grid";
 import PlayerRatingComponent from "./components/PlayerRatingComponent";
 import Divider from "@material-ui/core/Divider/Divider";
 import Button from "@material-ui/core/Button/Button";
-import ManOfTheMatch from "./components/ManOfTheMatch";
 import MultiChoiceQuestion from "./components/MultiChoiceQuestion";
 
 const styles = {
@@ -22,7 +21,8 @@ let players_data = {
 };
 
 let questions_data = {
-    1: {id: 1, question: "Who is best player ever?", choices: {1: "Choice 1", 2: "Choice 2", 3: "Choice 3", 4: "Choice 4"}, selected_choice: {choice_no: -1, choice_text: ""}},
+    1: {id: 1, question: "Player of the match?", choices: {}, selected_choice: {choice_no: -1, choice_text: ""}},
+    2: {id: 2, question: "Who is best player ever?", choices: {1: "Choice 1", 2: "Choice 2", 3: "Choice 3", 4: "Choice 4"}, selected_choice: {choice_no: -1, choice_text: ""}},
 };
 
 class PlayerRatings extends Component {
@@ -30,6 +30,7 @@ class PlayerRatings extends Component {
         players_data: {},
         questions_data: {},
         potm: {},
+        match_id: -1
     };
 
     componentDidMount() {
@@ -38,11 +39,17 @@ class PlayerRatings extends Component {
             answers[key] = { question_id:key, choice_no: -1, choice_text: ""}
         ));*/
 
+        questions_data[1]["choices"] = {};
+        Object.keys(players_data).map( key => (
+            questions_data[1]["choices"][key] = players_data[key]["common_name"]
+        ));
+
         this.setState(
             {
                 potm: {player_id: -1, player_common_name: ""},
                 questions_data: questions_data,
                 players_data : players_data,
+                match_id: 1
             },
             ()=> {
                 alert("Callback " + JSON.stringify(this.state));
@@ -52,6 +59,28 @@ class PlayerRatings extends Component {
 
     handleSubmit = (event) => {
         alert("Submitting");
+        const api_host = "https://localhost:8000/";
+        const url = api_host + `player_ratings/submit/`;
+        //const content = {"code":code, "provider":provider};
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        const init = {
+            method: 'POST',
+            headers: headers,
+            //body: JSON.stringify(content),
+            mode: 'cors'
+        };
+        const request = new Request(url, init);
+
+        /*fetch(request).then(res => res.json()).then(
+            (result) => {
+                alert(JSON.stringify(result))
+            },
+            (error) => {
+                alert(error)
+            }
+        )*/
     };
 
     handleMotmChange = (event, player_id, player_common_name) => {
@@ -60,16 +89,12 @@ class PlayerRatings extends Component {
 
     handleMultiChoiceAnswerChange = (e, question_id, value) => {
         console.log("question id ", question_id);
-        console.log("event ", e);
         console.log("value ", value.props.value);
         console.log("value text ", value.props.children);
-        //const answers = {... this.state.answers};
-        /*answers[question_id] = {
-            question_id: question_id,
-            choice_no: choice_no,
-            choice_text: choice_text
-        };
-        this.setState({answers:answers});*/
+        let questions_data = {... this.state.questions_data};
+        questions_data[question_id]["selected_choice"]["choice_no"] = value.props.value;
+        questions_data[question_id]["selected_choice"]["choice_text"] = value.props.children;
+        this.setState({questions_data:questions_data});
     }
 
     handleRatingChange = (event, player_id, value) => {
@@ -96,10 +121,6 @@ class PlayerRatings extends Component {
                                 <PlayerRatingComponent key={i} player_data={players_data[i]} handleChange={this.handleRatingChange}/>
                             ))
                         }
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <ManOfTheMatch players_data={players_data} handleChange={this.handleMotmChange}/>
                     </Grid>
                     {Object.keys(questions_data).map( i => (
                         <Grid item xs={12} key={i}>
