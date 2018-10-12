@@ -11,6 +11,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import PollIcon from "@material-ui/icons/Poll";
+import ShowChartIcon from "@material-ui/icons/ShowChart";
 import GamesIcon from "@material-ui/icons/Games";
 import MoreIcon from "@material-ui/icons/More";
 import WhatsHotIcon from "@material-ui/icons/Whatshot";
@@ -24,6 +25,7 @@ const styles = {
 };
 
 const linkToHome = props => <Link to="/" exact="true" {...props}/>;
+const linkToRealmadridSubredditAnalysis = props => <Link to="/realmadrid_subreddit_analysis" {...props}/>;
 const linkToPlayerRatings = props => <Link to="/player_ratings" {...props}/>;
 const linkToMessiVsRonaldo = props => <Link to="/messi_vs_ronaldo" {...props}/>;
 const linkToScorePrediction = props => <Link to="/score_prediction" {...props}/>;
@@ -40,6 +42,12 @@ const sideListDiv = (
                     <HomeIcon />
                 </ListItemIcon>
                 <ListItemText primary="Home" />
+            </ListItem>
+            <ListItem button component={linkToRealmadridSubredditAnalysis}>
+                <ListItemIcon>
+                    <ShowChartIcon />
+                </ListItemIcon>
+                <ListItemText primary="RM data analysis" />
             </ListItem>
             <ListItem button component={linkToMessiVsRonaldo}>
                 <ListItemIcon>
@@ -59,12 +67,12 @@ const sideListDiv = (
                 </ListItemIcon>
                 <ListItemText primary="Score Prediction" />
             </ListItem>
-            <ListItem button component={linkToCricketManager}>
+            {/*<ListItem button component={linkToCricketManager}>
                 <ListItemIcon>
                     <GamesIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Cricket Manager" />
-            </ListItem>
+            </ListItem>-->*/}
             <ListItem button component={linkToPlayground}>
                 <ListItemIcon>
                     <DeveloperBoardIcon/>

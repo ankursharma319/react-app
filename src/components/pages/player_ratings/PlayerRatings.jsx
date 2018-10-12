@@ -29,7 +29,6 @@ class PlayerRatings extends Component {
     state = {
         players_data: {},
         questions_data: {},
-        potm: {},
         match_id: -1
     };
 
@@ -46,7 +45,6 @@ class PlayerRatings extends Component {
 
         this.setState(
             {
-                potm: {player_id: -1, player_common_name: ""},
                 questions_data: questions_data,
                 players_data : players_data,
                 match_id: 1
@@ -58,7 +56,6 @@ class PlayerRatings extends Component {
     }
 
     handleSubmit = (event) => {
-        alert("Submitting");
         const api_host = "https://localhost:8000/";
         const url = api_host + `player_ratings/submit/`;
         //const content = {"code":code, "provider":provider};
@@ -72,7 +69,7 @@ class PlayerRatings extends Component {
             mode: 'cors'
         };
         const request = new Request(url, init);
-
+        alert(JSON.stringify(this.state))
         /*fetch(request).then(res => res.json()).then(
             (result) => {
                 alert(JSON.stringify(result))
@@ -81,10 +78,6 @@ class PlayerRatings extends Component {
                 alert(error)
             }
         )*/
-    };
-
-    handleMotmChange = (event, player_id, player_common_name) => {
-        this.setState({ potm: {player_id: player_id, player_common_name: player_common_name }});
     };
 
     handleMultiChoiceAnswerChange = (e, question_id, value) => {

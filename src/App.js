@@ -75,6 +75,9 @@ class HashRouters extends Component {
                     <Route path="/album" component={Album} />
                     <Route path="/about_me" component={AboutMe} exact/>
                     <Route path="/other_work" component={OtherWork} />
+                    <Route path="/realmadrid_subreddit_analysis" render={()=>(
+                        window.location.replace("https://ankursharma.surge.sh/r-realmadrid-behaviour.html")
+                    )}/>
                     <Route path="/player_ratings" component={PlayerRatings} />
                     <Route path="/cricket_manager" component={CricketManager} />
                     <Route path="/messi_vs_ronaldo" component={MessiVsRonaldo} />
