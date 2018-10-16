@@ -30,7 +30,8 @@ class PlayerRatings extends Component {
     state = {
         players_data: {},
         questions_data: {},
-        match_id: -1
+        match_id: -1,
+        status: "Loading"
     };
 
     componentDidMount() {
@@ -42,7 +43,9 @@ class PlayerRatings extends Component {
         this.fetchPlayers().then((players_result)=>{
             let player_data = {}
             players_result.map((item, i)=>{
-                player_data[item["id"]] = {...item, "rating": 6.25, "last_3_ratings": []}
+                if(i<15) {
+                    player_data[item["id"]] = {...item, "rating": 6.25, "last_3_ratings": []}
+                }
             });
 
             questions_data[1]["choices"] = {};
@@ -54,7 +57,8 @@ class PlayerRatings extends Component {
             this.setState({
                 questions_data: questions_data,
                 players_data: player_data,
-                match_id: 1
+                match_id: 1,
+                status:"",
             })
         });
 
@@ -131,13 +135,11 @@ class PlayerRatings extends Component {
 
     render() {
         const {classes} = this.props;
-        if(Object.keys(this.state.players_data).length < 1) {
-            return <h2>Loading</h2>;
-        }
         return (
             <div className={classes.root}>
                 <h1>Player Ratings</h1>
                 <h3>Submissions not open at this time - check previous results <Link to="/player_rating_results">here</Link></h3>
+                <h3>{this.state.status}</h3>
                 <Divider/>
                 <Grid container={true} spacing={16} className={classes.root}>
                     <Grid item xs={12}>

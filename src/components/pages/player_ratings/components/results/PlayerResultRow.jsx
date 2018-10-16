@@ -37,7 +37,7 @@ class PlayerResultRow extends Component {
 
     render() {
         const {player_data, classes} = this.props;
-        const images_folder = window.location.origin + "/images/";
+        const images_folder = window.location.origin + "/images/players/";
         return (
             <div>
                 <Grid container={true} spacing={8} alignItems={"center"} alignContent={"center"}

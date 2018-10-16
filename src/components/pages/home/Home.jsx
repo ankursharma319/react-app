@@ -100,6 +100,7 @@ class Home extends Component {
                             <p>
                             I love software development in general but I am particularly interested in data analysis, machine learning, natural language processing and image processing.
                             </p>
+                            <p>Website is under development so some features might not work correctly</p>
                         </Typography>
                     </div>
                 </div>
