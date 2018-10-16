@@ -35,7 +35,7 @@ class App extends Component {
             <BrowserRouter>
                 <React.Fragment>
                 <Switch>
-                    <Route exact path="/oauth2callback" component={RedirectToOAuth2}/>
+                    <Route path="/oauth2callback" component={RedirectToOAuth2}/>
                     <Route exact path="/privacy_policy" render={()=>(
                         <Redirect to="/#/privacy_policy"/>
                     )}/>
