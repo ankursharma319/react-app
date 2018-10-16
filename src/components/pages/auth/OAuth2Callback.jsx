@@ -3,7 +3,10 @@ import queryString from 'query-string';
 
 const parsedGET = queryString.parse(window.location.search)
 const parsedHash = queryString.parse(window.location.hash);
-const api_host = "https://localhost:8000/";
+let api_host = "https://django-rest-api.us-east-2.elasticbeanstalk.com/";
+if(window.location.hostname.toLowerCase() === "localhost") {
+    api_host = "https://localhost:8000/";
+}
 
 class OAuth2Callback extends Component {
     getAccessToken = (code, provider) => {
