@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import ScorePrediction from "./components/pages/score_prediction/ScorePrediction";
 import Home from "./components/pages/home/Home";
 import PlayerRatings from "./components/pages/player_ratings/PlayerRatings";
+import PlayerRatingResults from "./components/pages/player_ratings/PlayerRatingResults"
 import CricketManager from "./components/pages/cricket_manager/CricketManager";
 import InvalidUrl from "./components/pages/error/InvalidUrl";
 import MessiVsRonaldo from "./components/pages/messi_vs_ronaldo/MessiVsRonaldo";
@@ -79,6 +80,7 @@ class HashRouters extends Component {
                         window.location.replace("https://ankursharma.surge.sh/r-realmadrid-behaviour.html")
                     )}/>
                     <Route path="/player_ratings" component={PlayerRatings} />
+                    <Route path="/player_rating_results" component={PlayerRatingResults} />
                     <Route path="/cricket_manager" component={CricketManager} />
                     <Route path="/messi_vs_ronaldo" component={MessiVsRonaldo} />
                     <Route path="/playground" component={Playground} />

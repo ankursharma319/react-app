@@ -79,12 +79,12 @@ const sideListDiv = (
                 </ListItemIcon>
                 <ListItemText primary="Playground" />
             </ListItem>
-            <ListItem button component={linkToOtherWork}>
+            {/*<ListItem button component={linkToOtherWork}>
                 <ListItemIcon>
                     <MoreIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Other Work" />
-            </ListItem>
+            </ListItem>*/}
             <ListItem button component={linkToAboutMe}>
                 <ListItemIcon>
                     <PermIdentityIcon />

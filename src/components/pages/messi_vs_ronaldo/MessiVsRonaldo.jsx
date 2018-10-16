@@ -26,6 +26,10 @@ const styles = theme => ({
 
 const ini_options = {
     maintainAspectRatio: false,
+    title: {
+        display: true,
+        text: 'Player popularity over time on Reddit'
+    },
     scales: {
         xAxes: [{
             type: 'time',
@@ -35,7 +39,17 @@ const ini_options = {
                 min: new Date("2017-08-01"),
                 max: new Date("2018-06-30")
             },
-            bounds: 'ticks'
+            bounds: 'ticks',
+            scaleLabel: {
+                display: true,
+                labelString: "Time"
+            }
+        }],
+        yAxes: [{
+            scaleLabel: {
+                display: true,
+                labelString: "Popularity Metric"
+            }
         }]
     },
     legend: {
@@ -100,7 +114,10 @@ class MessiVsRonaldo extends Component {
     }
 
     componentDidMount() {
-        const api_host = "https://localhost:8000/";
+        let api_host = "https://django-rest-api.us-east-2.elasticbeanstalk.com/";
+        if(window.location.hostname.toLowerCase() === "localhost") {
+            api_host = "https://localhost:8000/";
+        }
         const url = api_host + "player_popularities/data/";
         //const content = {"code":code, "provider":provider};
         const headers = new Headers();
@@ -168,7 +185,7 @@ class MessiVsRonaldo extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.otherWorkRoot}>
-                <h2>Other Work</h2>
+                <h2>Player popularities comparison</h2>
                 <Line data={this.state.data} options={this.state.options} key={Math.random()}/>
                 <br/>
                 <form className={classes.container}>
@@ -199,6 +216,7 @@ class MessiVsRonaldo extends Component {
                         </Grid>
                     </Grid>
                 </form>
+                <p>Data collected from subreddit r/soccer using Pushshift API</p>
             </div>
         );
     }

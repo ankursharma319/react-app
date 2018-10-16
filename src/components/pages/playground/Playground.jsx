@@ -3,7 +3,13 @@ import {FacebookLoginButton, TwitterLoginButton, GoogleLoginButton} from "react-
 import Grid from "@material-ui/core/Grid/Grid";
 
 //const api_host = "https://localhost:8000/";
-const client_host = "https://localhost:3000/";
+let api_host = "https://django-rest-api.us-east-2.elasticbeanstalk.com/";
+let client_host = "https://ankursharma.surge.sh/"
+if(window.location.hostname.toLowerCase() === "localhost") {
+    api_host = "https://localhost:8000/";
+    client_host = "https://localhost:3000/";
+}
+
 const oauth2_callback = client_host + "oauth2callback";
 
 const fb_app_id = "257376735105718";
@@ -40,6 +46,7 @@ class Playground extends Component {
         return (
             <div>
                 <h2>Code Playground</h2>
+                <h4>For testing and development purposes</h4>
                 <Grid container spacing={8} alignContent="center" alignItems="center" justify="center">
                     <Grid item sm={4} md={3} lg={2}>
                         <FacebookLoginButton align={"center"} style={{"maxWidth": "350px"}}

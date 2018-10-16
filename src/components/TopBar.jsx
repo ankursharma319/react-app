@@ -62,7 +62,7 @@ class TopBar extends Component {
                         > {this.props.title}
                         </Typography>
                         {/*<img src={logo} className="App-logo" alt="logo"/>*/}
-                        <AuthStatus/>
+                        {/*<AuthStatus/>*/}
                     </Toolbar>
                 </AppBar>
                 <SideBar id="side-bar" isDrawerOpen={this.state.isSideBarOpen} doToggle={this.toggleSideBar}/>

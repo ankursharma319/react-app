@@ -24,7 +24,10 @@ class MessiVsRonaldoNivo extends Component {
     };
 
     componentDidMount() {
-        const api_host = "https://localhost:8000/";
+        let api_host = "https://django-rest-api.us-east-2.elasticbeanstalk.com/";
+        if(window.location.hostname.toLowerCase() === "localhost") {
+            api_host = "https://localhost:8000/";
+        }
         const url = api_host + `player_popularities/data/`;
         //const content = {"code":code, "provider":provider};
         const headers = new Headers();

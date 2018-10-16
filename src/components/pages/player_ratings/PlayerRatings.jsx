@@ -6,6 +6,7 @@ import PlayerRatingComponent from "./components/PlayerRatingComponent";
 import Divider from "@material-ui/core/Divider/Divider";
 import Button from "@material-ui/core/Button/Button";
 import MultiChoiceQuestion from "./components/MultiChoiceQuestion";
+import {Link} from "react-router-dom";
 
 const styles = {
     root: {
@@ -38,38 +39,66 @@ class PlayerRatings extends Component {
             answers[key] = { question_id:key, choice_no: -1, choice_text: ""}
         ));*/
 
-        questions_data[1]["choices"] = {};
-        Object.keys(players_data).map( key => (
-            questions_data[1]["choices"][key] = players_data[key]["common_name"]
-        ));
+        this.fetchPlayers().then((players_result)=>{
+            let player_data = {}
+            players_result.map((item, i)=>{
+                player_data[item["id"]] = {...item, "rating": 6.25, "last_3_ratings": []}
+            });
 
-        this.setState(
+            questions_data[1]["choices"] = {};
+            Object.keys(player_data).map( key => (
+                questions_data[1]["choices"][key] = player_data[key]["common_name"]
+            ));
+
+            console.log(players_result);
+            this.setState({
+                questions_data: questions_data,
+                players_data: player_data,
+                match_id: 1
+            })
+        });
+
+        /*this.setState(
             {
                 questions_data: questions_data,
                 players_data : players_data,
                 match_id: 1
             },
             ()=> {
-                alert("Callback " + JSON.stringify(this.state));
+                //alert("Callback " + JSON.stringify(this.state));
             }
-        );
+        );*/
+    }
+
+    fetchPlayers() {
+        let api_host = "https://django-rest-api.us-east-2.elasticbeanstalk.com/";
+        if(window.location.hostname.toLowerCase() === "localhost") {
+            api_host = "https://localhost:8000/";
+        }
+        let url = api_host + "player_ratings/players/";
+        const init = {
+            method: 'GET',
+            mode: 'cors'
+        };
+        const request = new Request(url, init);
+        return fetch(request).then(res => res.json());
     }
 
     handleSubmit = (event) => {
-        const api_host = "https://localhost:8000/";
-        const url = api_host + `player_ratings/submit/`;
+        //const api_host = "https://localhost:8000/";
+        //const url = api_host + `player_ratings/submit/`;
         //const content = {"code":code, "provider":provider};
-        const headers = new Headers();
-        headers.append("Content-Type", "application/json");
+        //const headers = new Headers();
+        //headers.append("Content-Type", "application/json");
 
-        const init = {
+        /*const init = {
             method: 'POST',
             headers: headers,
             //body: JSON.stringify(content),
             mode: 'cors'
-        };
-        const request = new Request(url, init);
-        alert(JSON.stringify(this.state))
+        };*/
+        //const request = new Request(url, init);
+        alert("Player Ratings submissions for this match not open yet")
         /*fetch(request).then(res => res.json()).then(
             (result) => {
                 alert(JSON.stringify(result))
@@ -91,6 +120,8 @@ class PlayerRatings extends Component {
     }
 
     handleRatingChange = (event, player_id, value) => {
+        //alert("here");
+        //console.log(event, player_id, value);
         const players_data = {...this.state.players_data};
         players_data[player_id]["rating"] = value;
         this.setState({
@@ -106,18 +137,19 @@ class PlayerRatings extends Component {
         return (
             <div className={classes.root}>
                 <h1>Player Ratings</h1>
+                <h3>Submissions not open at this time - check previous results <Link to="/player_rating_results">here</Link></h3>
                 <Divider/>
                 <Grid container={true} spacing={16} className={classes.root}>
                     <Grid item xs={12}>
                         {
-                            Object.keys(players_data).map( i => (
-                                <PlayerRatingComponent key={i} player_data={players_data[i]} handleChange={this.handleRatingChange}/>
+                            Object.keys(this.state.players_data).map( i => (
+                                <PlayerRatingComponent key={i} player_data={this.state.players_data[i]} handleChange={this.handleRatingChange}/>
                             ))
                         }
                     </Grid>
-                    {Object.keys(questions_data).map( i => (
+                    {Object.keys(this.state.questions_data).map( i => (
                         <Grid item xs={12} key={i}>
-                            <MultiChoiceQuestion question_data={questions_data[i]}
+                            <MultiChoiceQuestion question_data={this.state.questions_data[i]}
                                                  handleChange={this.handleMultiChoiceAnswerChange}
                             />
                         </Grid>

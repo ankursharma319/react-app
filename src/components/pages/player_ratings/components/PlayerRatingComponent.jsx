@@ -38,7 +38,7 @@ const styles = {
 class PlayerRatingComponent extends Component {
     render() {
         const {player_data, classes, handleChange} = this.props;
-        const images_folder = window.location.origin + "/images/";
+        const images_folder = window.location.origin + "/images/players/";
         return (
             <div className={classes.root}>
                 <Grid container={true} spacing={8} alignItems={"center"} alignContent={"center"}
