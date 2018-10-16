@@ -5,7 +5,8 @@ class ScorePrediction extends Component {
     render() {
         return (
             <div>
-                Score Prediction page
+                <h1>Score Prediction</h1>
+                <p>Under development</p>
             </div>
         );
     }

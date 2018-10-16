@@ -13,14 +13,15 @@ class Footer extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <footer className={classes.footer}>
+            <React.Fragment><div/></React.Fragment>
+            /*<footer className={classes.footer}>
                 <Typography variant="body2" color="textSecondary" align="center" gutterBottom>
                     Ankur Sharma
                 </Typography>
                 <Typography variant="body2" align="center" color="textSecondary" component="p">
                     <i className="material-icons md-12">copyright</i>
                 </Typography>
-            </footer>
+            </footer>*/
         );
     }
 }
